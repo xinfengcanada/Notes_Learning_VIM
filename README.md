@@ -25,6 +25,7 @@ Remap your Capslock to Esc
 - Learning VIM while playing a game
   - [VIM-adventures](https://vim-adventures.com/)
 - Watching Screen Casts
+
 watch others use vim
   - [VimCasts](vimcasts.org)
   - [Upcase](upcase.com/vim)
