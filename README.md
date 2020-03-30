@@ -23,7 +23,7 @@ Remap your Capslock to Esc
 ## Where to actually start learning?
 - $ vimtutor
 - Learning VIM while playing a game
-[VIM-adventures](https://vim-adventures.com/)
+  - [VIM-adventures](https://vim-adventures.com/)
 - Watching Screen Casts
 watch others use vim
   - [VimCasts](vimcasts.org)
