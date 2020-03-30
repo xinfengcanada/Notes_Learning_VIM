@@ -29,6 +29,6 @@ watch others use vim
 -- [VimCasts](vimcasts.org)
 -- [Upcase](upcase.com/vim)
 ## Plugins for development
-- [CTRL-P](github.com/kien/ctrlp.vim)
-- [NERDTree](github.com/scrooloose/nerdtree)
-- [AG for Vim](github.com/rking/ag.vim)
+- [CTRL-P](https://github.com/kien/ctrlp.vim)
+- [NERDTree](https://github.com/scrooloose/nerdtree)
+- [AG for Vim](https://github.com/rking/ag.vim)
