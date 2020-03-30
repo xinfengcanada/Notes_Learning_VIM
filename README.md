@@ -21,13 +21,13 @@ Remap your Capslock to Esc
 - Version Control by git
 - Steel from your friends' dotfiles
 ## Where to actually start learning?
-- $vimtutor
+- $ vimtutor
 - Learning VIM while playing a game
 [VIM-adventures](https://vim-adventures.com/)
 - Watching Screen Casts
 watch others use vim
--- [VimCasts](vimcasts.org)
--- [Upcase](upcase.com/vim)
+  - [VimCasts](vimcasts.org)
+  - [Upcase](upcase.com/vim)
 ## Plugins for development
 - [CTRL-P](https://github.com/kien/ctrlp.vim)
 - [NERDTree](https://github.com/scrooloose/nerdtree)
