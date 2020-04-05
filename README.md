@@ -7,6 +7,10 @@
 - But can it...?
 - Always a better way
 - Learn every week
+
+## Download and installation
+[Downloading VIM](https://www.vim.org/download.php)
+
 ## Hack your keyboard
 Remap your Capslock to Esc
 - Linux: [Gnome Tweak Tools Update](https://i.stack.imgur.com/zPTPF.png)
