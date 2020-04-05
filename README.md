@@ -10,7 +10,7 @@
 ## Hack your keyboard
 Remap your Capslock to Esc
 - Linux: [Gnome Tweak Tools Update](https://i.stack.imgur.com/zPTPF.png)
-- Windows:
+- Windows: [Map caps lock to escape in Windows](https://vim.fandom.com/wiki/Map_caps_lock_to_escape_in_Windows)
 - MAC OS: 
 ## Speed up your key repeat
 
