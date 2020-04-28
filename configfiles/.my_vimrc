@@ -1,0 +1,17 @@
+"vim config file
+"date 2020-04-28
+"Created by goshinh
+
+"""""""""""""""""""""""
+"gloal config
+"""""""""""""""""""""""
+"close vi model
+set nocompatible
+
+"""""""""""""""""""""""
+"vi GUI
+"""""""""""""""""""""""
+"display line numbers
+set nu
+
+
