@@ -8,7 +8,7 @@
 - Always a better way
 - Learn every week
 
-## Download and installation
+## Download And Installation Or Update
 [Downloading VIM](https://www.vim.org/download.php)
 
 ## Hack your keyboard
