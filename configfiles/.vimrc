@@ -29,5 +29,6 @@ set hlsearch
 "incremental search
 set incsearch
 
+"map F9 to compile c file,and ctrl+F9 to compile and run
 map <F9> :w <CR> :!clear && gcc % <CR>
 map <C-F9> :w <CR> :!clear && gcc % -o %< && ./%< <CR>
