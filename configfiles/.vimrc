@@ -20,10 +20,14 @@ set ruler
 "display line numbers
 set nu
 
+"display line relativnumbers
+set relativenumber
+
 "highlighting search
 set hlsearch
 
 "incremental search
 set incsearch
 
-
+map <F9> :w <CR> :!clear && gcc % <CR>
+map <C-F9> :w <CR> :!clear && gcc % -o %< && ./%< <CR>
