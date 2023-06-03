@@ -1,4 +1,4 @@
-# LearningVIM
+# [Learning VIM in a Week](https://www.youtube.com/watch?v=_NUO4JEtkDw&ab_channel=thoughtbot)
 
 ## What do you to know before Beginning
 - It's different
@@ -31,11 +31,15 @@ Remap your Capslock to Esc
 - Learning VIM while playing a game
   - [VIM-adventures](https://vim-adventures.com/)
 - Watching Screen Casts
-
-watch others use vim
   - [VimCasts](vimcasts.org)
   - [Upcase](upcase.com/vim)
 ## Plugins for development
 - [CTRL-P](https://github.com/kien/ctrlp.vim)
 - [NERDTree](https://github.com/scrooloose/nerdtree)
 - [AG for Vim](https://github.com/rking/ag.vim)
+## ONE LAST REVIEW
+- Caps Lock -> ESC
+- Do vimtutor
+- Watch screencasts
+- Steal from your friends
+- Learning vim is a process!
