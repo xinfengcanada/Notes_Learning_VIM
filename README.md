@@ -24,6 +24,8 @@ Remap your Capslock to Esc
 ~/.vimrc
 - Version Control by git
 - Steel from your friends' dotfiles
+  - [mscoutermarsh](https://github.com/mscoutermarsh/dotfiles)
+  - [thoughtbot](https://github.com/thoughtbot/dotfiles)
 ## Where to actually start learning?
 - $ vimtutor
 - Learning VIM while playing a game
