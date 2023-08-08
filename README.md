@@ -4,6 +4,8 @@ This repo is about notes I learn the Vim from diverse sources, such as books, Yo
 ## There are .vimrc files
 My own:
 
+[.my_vimrc](https://github.com/xinfengcanada/Notes_VIM/blob/master/configfiles/.my_vimrc)
+
 Others:
 
 [Inspired by Martin Brochhaus](https://github.com/yangyaoge/my_vimrc/blob/master/.vimrc)
