@@ -1,4 +1,3 @@
-# Notes_VIM
 This repo is about notes I learn the Vim from diverse sources, such as books, Youtube, and my personal notes.
 
 ## There are .vimrc files
