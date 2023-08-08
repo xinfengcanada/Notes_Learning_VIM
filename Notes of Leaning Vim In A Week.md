@@ -1,6 +1,6 @@
 # [Learning VIM in a Week](https://www.youtube.com/watch?v=_NUO4JEtkDw&ab_channel=thoughtbot)
 
-## What do you to know before Beginning
+## What do you to know before beginning
 - It's different
 - Not@Work
 - Break up with your mouse
@@ -23,7 +23,7 @@ Remap your Capslock to Esc
 ## Configuring your vim
 ~/.vimrc
 - Version Control by git
-- Steel from your friends' dotfiles
+- Steal from your friends' dotfiles
   - [mscoutermarsh](https://github.com/mscoutermarsh/dotfiles)
   - [thoughtbot](https://github.com/thoughtbot/dotfiles)
 ## Where to actually start learning?
@@ -42,4 +42,4 @@ Remap your Capslock to Esc
 - Do vimtutor
 - Watch screencasts
 - Steal from your friends
-- Learning vim is a process!
+- Learning Vim is a process!
