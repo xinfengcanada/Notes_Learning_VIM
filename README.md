@@ -11,6 +11,8 @@ Others:
 
 [Dotfiles](https://github.com/xinfengcanada/Notes_Learning_VIM/tree/master/configfiles)
 
+See more about [the initialization of Vim](https://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc) or type :help initialization in Vim.
+
 ## Videos
 [Video: Learning VIM in a Week](https://github.com/xinfengcanada/Notes_Learning_VIM/blob/master/Notes%20of%20Leaning%20Vim%20In%20A%20Week.md) and [Notes of the Video](https://github.com/xinfengcanada/Notes_VIM/blob/master/Notes%20of%20Leaning%20Vim%20In%20A%20Week.md)
 
