@@ -52,6 +52,7 @@ set hidden
 
 " 设置历史记录步数"
 set history=1000
+set undolevels=700
 
 " 当文件在外部被修改时，自动更新该文件"
 "set autoread
@@ -61,14 +62,6 @@ set wildmenu
 
 " Show partial commands in the last line of the screen
 set showcmd
-
-" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
-" mapping of <C-L> below)
-set hlsearch
-
-" Incremental search
-set incsearch
-
 
 " Modelines have historically been a source of security vulnerabilities. As
 " such, it may be a good idea to disable them and use the securemodelines
@@ -83,6 +76,15 @@ set incsearch
 " change Vim's behaviour in ways which deviate from the true Vi way, but
 " which are considered to add usability. Which, if any, of these options to
 " use is very much a personal preference, but they are harmless.
+
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
+
+" Incremental search
+set incsearch
+
+highlight ColorColumn ctermbg=233
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -104,6 +106,17 @@ set nostartofline
 " line of a window
 set ruler
 
+" width of document (used by gd)
+set tw=79
+
+" Don't automatically wrap on load
+set nowrap  
+
+" Don't automatically wrap text when typing
+set fo-=t   
+
+set colorcolumn=80
+
 " Always display the status line, even if only one window is displayed
 set laststatus=2
 
@@ -124,9 +137,12 @@ if has('mouse')
   set mouse=a
 endif
 
+" Make backspace behave like normal again
+set bs=2     
+
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
-set cmdheight=2
+"set cmdheight=2
 
 " Display line numbers on the left
 set number
@@ -137,9 +153,15 @@ set relativenumber
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
-" Use <F11> to toggle between 'paste' and 'nopaste'
-set pastetoggle=<F11>
+" Use <F2> to toggle between 'paste' and 'nopaste'
+" Better copy & paste
+" When you want to paste large blocks of code into vim, press F2 before you
+" paste. At the bottom you should see ``-- INSERT (paste) --``.
+set pastetoggle=<F2>
+set clipboard=unnamed
 
+" Check spell
+" set spell 
 
 "------------------------------------------------------------
 " Indentation options {{{1
@@ -165,6 +187,29 @@ set expandtab
 set softtabstop=4
 set smarttab
 
+set shiftround
+
+
+"------------------------------------------------------------
+" Disable stupid backup and swap files - they trigger too many events
+" for file system watchers
+set nobackup
+set nowritebackup
+set noswapfile
+
+
+"------------------------------------------------------------
+" Show whitespace
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Color scheme
+" mkdir -p ~/.vim/colors && cd ~/.vim/colors
+" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+set t_Co=256
+color wombat256mod
+
 
 "------------------------------------------------------------
 " Mappings {{{1
@@ -179,4 +224,126 @@ map Y y$
 " next search
 nnoremap <C-L> :nohl<CR><C-L>
 
+" Rebind <Leader> key
+let mapleader = ","
+
+" Quick reload and edit .vimrc
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+
+" Quick delete all space character at the end of lines of current file.
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+
+" Quick save command
+noremap <C-Z> :update<CR>
+vnoremap <C-Z> <C-C>:update<CR>
+inoremap <C-Z> <C-O>:update<CR>
+
+" Quick quit command
+" Quit current window
+noremap <Leader>e :quit<CR>
+" Quit all windows
+noremap <Leader>E :qa!<CR>
+
+" Bind Ctrl-<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-l> <C-W>l
+map <C-h> <C-W>h
+
+" Move easierly between tabs
+"map <leader>n <esc>:tabprevious<CR>
+"map <leader>m <esc>:tabnext<CR>
+"map <leader>n <C-PageDown>
+"map <leader>p <C-PageUp>
+"note that four commands above do not work on my Ubuntu
+
+" map sort function to a key
+"vnoremap <Leader>s :sort<CR>
+
+" easier moving of code blocks
+" Try to go into visual mode (v), thenselect several lines of code here and
+" then press ``>`` several times.
+vnoremap < <gv  " better indentation
+vnoremap > >gv  " better indentation
+
+" easier formatting of paragraphs
+"vmap Q gq
+"nmap Q gqap
+
 "------------------------------------------------------------
+" Setup Pathogen to manage your plugins
+" mkdir -p ~/.vim/autoload ~/.vim/bundle
+" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
+" Now you can install any plugin into a .vim/bundle/plugin-name/ folder
+execute pathogen#infect()
+
+
+" ============================================================================
+" Python IDE Setup
+" ============================================================================
+
+
+" Introduction: Powerline is a utility plugin which allows you to create better-looking, more functional vim statuslines. 
+" Settings for vim-powerline
+" cd ~/.vim/bundle
+" git clone https://github.com/Lokaltog/vim-powerline.git
+set laststatus=2
+
+" Introduction: Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
+" Settings for ctrlp
+" cd ~/.vim/bundle
+" git clone https://github.com/kien/ctrlp.vim.git
+let g:ctrlp_max_height = 30
+set wildignore+=*.pyc
+set wildignore+=*_build/*
+set wildignore+=*/coverage/*
+
+
+" Settings for python-mode
+" Note: I'm no longer using this. Leave this commented out
+" and uncomment the part about jedi-vim instead
+" cd ~/.vim/bundle
+" git clone https://github.com/klen/python-mode
+"" map <Leader>g :call RopeGotoDefinition()<CR>
+"" let ropevim_enable_shortcuts = 1
+"" let ropevim_enable_shortcutsg:pymode_rope_goto_def_newwin = "vnew"
+"" let g:pymode_rope_extended_complete = 1
+"" let g:pymode_breakpoint = 0
+"" let g:pymode_syntax = 1
+"" let g:pymode_syntax_builtin_objs = 0
+"" let g:pymode_syntax_builtin_funcs = 0
+"" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+
+" Introduction: jedi-vim is a VIM binding to the autocompletion library Jedi.
+" Settings for jedi-vim
+" cd ~/.vim/bundle
+" git clone --recursive https://github.com/davidhalter/jedi-vim.git
+ let g:jedi#usages_command= "<leader>z"
+ let g:jedi#popup_on_dot = 0
+ let g:jedi#popup_select_first = 0
+ map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
+
+" Better navigating through omnicomplete option list
+" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+ set completeopt=longest,menuone
+ function! OmniPopup(action)
+     if pumvisible()
+         if a:action == 'j'
+             return "\<C-N>"
+         elseif a:action == 'k'
+             return "\<C-P>"
+         endif
+     endif
+     return a:action
+ endfunction
+
+"" inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+"" inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+
+
+" Python folding
+" mkdir -p ~/.vim/ftplugin
+" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
+ set nofoldenable
