@@ -1,6 +1,7 @@
 
-"------------------------------------------------------------
-" Features {{{1
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => General
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "
 " These options and commands enable some very useful features in Vim, that
 " no user should have to live without.
@@ -9,105 +10,95 @@
 " have made, as well as sanely reset options when re-sourcing .vimrc
 set nocompatible
 
-" Attempt to determine the type of a file based on its name and possibly its
-" contents. Use this to allow intelligent auto-indenting for each filetype,
-" and for plugins that are filetype specific.
-if has('filetype')
-  filetype indent plugin on
-endif
+" Enable filetype plugins
+filetype plugin on
+filetype indent on
 
-" Enable syntax highlighting
-if has('syntax')
-  syntax on
-endif
-
-"------------------------------------------------------------
-" Must have options {{{1
-"
-" These are highly recommended options.
-
-" Vim with default settings does not allow easy switching between multiple files
-" in the same editor window. Users can use multiple split windows or multiple
-" tab pages to edit multiple files, but it is still best to enable an option to
-" allow easier switching between files.
-"
-" One such option is the 'hidden' option, which allows you to re-use the same
-" window and switch from an unsaved buffer without saving it first. Also allows
-" you to keep an undo history for multiple files when re-using the same window
-" in this way. Note that using persistent undo also lets you undo in multiple
-" files even in the same window, but is less efficient and is actually designed
-" for keeping undo history after closing Vim entirely. Vim will complain if you
-" try to quit without saving, and swap files will keep you safe if your computer
-" crashes.
-set hidden
-
-" Note that not everyone likes working this way (with the hidden option).
-" Alternatives include using tabs or split windows instead of re-using the same
-" window as mentioned above, and/or either of the following options:
-" set confirm
-" set autowriteall
-
-" Auto save
-"set autowrite
-
-" 设置历史记录步数"
-set history=1000
-set undolevels=700
-
-" 当文件在外部被修改时，自动更新该文件"
-"set autoread
+let $LANG='en'
+set langmenu=en
 
 " Better command-line completion
 set wildmenu
 
 " Show partial commands in the last line of the screen
-set showcmd
+"set showcmd
 
 " Modelines have historically been a source of security vulnerabilities. As
 " such, it may be a good idea to disable them and use the securemodelines
 " script, <http://www.vim.org/scripts/script.php?script_id=1876>.
-" set nomodeline
-
-
-"------------------------------------------------------------
-" Usability options {{{1
-"
-" These are options that users frequently set in their .vimrc. Some of them
-" change Vim's behaviour in ways which deviate from the true Vi way, but
-" which are considered to add usability. Which, if any, of these options to
-" use is very much a personal preference, but they are harmless.
-
-" Automatic reloading of .vimrc
-autocmd! bufwritepost .vimrc source %
-
-" Display line numbers on the left
-set number
-
-" Display line relativnumbers
-set relativenumber
-
-" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
-" mapping of <C-L> below)
-set hlsearch
-
-" Incremental search
-set incsearch
-
-" Use case insensitive search, except when using capital letters
-set ignorecase
-set smartcase
-
-" Allow backspacing over autoindent, line breaks and start of insert action
-set backspace=indent,eol,start
-
-" When opening a new line and no filetype-specific indenting is enabled, keep
-" the same indent as the line you're currently on. Useful for READMEs, etc.
-set autoindent
+"set nomodeline
 
 " Stop certain movements from always going to the first character of a line.
 " While this behaviour deviates from that of Vi, it does what most users
 " coming from other editors would expect.
 set nostartofline
+
+" No annoying sound on errors
+set noerrorbells
+set novisualbell
+set t_vb=
+set tm=500
+
+" Instead of failing a command because of unsaved changes, instead raise a
+" dialogue asking if you wish to save changed files.
+set confirm
+
+" Enable use of the mouse for all modes
+if has('mouse')
+  set mouse=a
+endif
+
+" Set the command window height to 2 lines, to avoid many cases of having to
+" "press <Enter> to continue"
+" See more https://stackoverflow.com/questions/12422468/vim-netrw-asking-to-press-enter-or-type-command-to-continue/12423858#12423858
+set cmdheight=2
+
+" Quickly time out on keycodes, but never time out on mappings
+set notimeout ttimeout ttimeoutlen=200
+
+" Map escape to caps while working with Vim
+au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_lock'
+
+" Rebind <Leader> key
+let mapleader = ","
+
+" Check spell
+"set spell
+
+"------------------------------------------------------------
+" .vimrc Setting
+
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Quick reload and edit .vimrc
+nnoremap <Leader>sv :source $MYVIMRC<CR>
+nnoremap <leader>ev :vsp $MYVIMRC<CR>
+
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => VIM user interface
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"------------------------------------------------------------
+" Show whitespace
+" MUST be inserted BEFORE the colorscheme command
+autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
+au InsertLeave * match ExtraWhitespace /\s\+$/
+
+" Color scheme
+" mkdir -p ~/.vim/colors && cd ~/.vim/colors
+" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
+set t_Co=256
+color wombat256mod
+
+" Display line numbers on the left
+"set number
+
+" Display line relativnumbers
+set relativenumber
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
@@ -130,137 +121,87 @@ set colorcolumn=80
 " Always display the status line, even if only one window is displayed
  set laststatus=2
 
-" Instead of failing a command because of unsaved changes, instead raise a
-" dialogue asking if you wish to save changed files.
-set confirm
+"------------------------------------------------------------
+" Searching
 
-" Use visual bell instead of beeping when doing something wrong
-"set visualbell
+" Highlight searches (use <C-L> to temporarily turn off highlighting; see the
+" mapping of <C-L> below)
+set hlsearch
 
-" And reset the terminal code for the visual bell. If visualbell is set, and
-" this line is also included, vim will neither flash nor beep. If visualbell
-" is unset, this does nothing.
-"set t_vb=
+" Incremental search
+set incsearch
 
-" Enable use of the mouse for all modes
-if has('mouse')
-  set mouse=a
-endif
+" Use case insensitive search, except when using capital letters
+set ignorecase
+set smartcase
 
-" Set the command window height to 2 lines, to avoid many cases of having to
-" "press <Enter> to continue"
-"set cmdheight=2
-
-" Quickly time out on keycodes, but never time out on mappings
-set notimeout ttimeout ttimeoutlen=200
-
-" Use <F2> to toggle between 'paste' and 'nopaste'
-" Better copy & paste
-" When you want to paste large blocks of code into vim, press F2 before you
-" paste. At the bottom you should see ``-- INSERT (paste) --``.
-set pastetoggle=<F2>
-set clipboard=unnamed
-
-" Check spell
-" set spell
+" Map <C-L> (redraw screen) to also turn off search highlighting until the
+" next search
+nnoremap <C-L> :nohl<CR><C-L>
 
 "------------------------------------------------------------
-" Indentation options {{{1
-"
+" Indentation options
 " Indentation settings according to personal preference.
-
 " Indentation settings for using 4 spaces instead of tabs.
 " Do not change 'tabstop' from its default value of 8 with this setup.
 
-" 设定<<和>>命令移动时的宽度为4"
-set shiftwidth=4
-
-" 使用空格来替换Tab"
+" Use spaces instead of tabs"
 set expandtab
 
-" Indentation settings for using hard tabs for indent. Display tabs as
-" four characters wide.
-"set shiftwidth=4
-" 设置所有的Tab和缩进为4个空格"
-"set tabstop=4
+" 1 tab == 4 spaces
+set shiftwidth=4
+set tabstop=4
 
-" 使得按退格键时可以一次删除4个空格"
+" 1 del == 4 spaces
 set softtabstop=4
 set smarttab
 
 set shiftround
 
+" When opening a new line and no filetype-specific indenting is enabled, keep
+" the same indent as the line you're currently on. Useful for READMEs, etc.
+set autoindent
+set smartindent
+
+
 
 "------------------------------------------------------------
+" Editing
+
 " Disable stupid backup and swap files - they trigger too many events
 " for file system watchers
 set nobackup
 set nowritebackup
 set noswapfile
 
+" Set to auto read when a file is changed from the outside
+set autoread
 
-"------------------------------------------------------------
-" Show whitespace
-" MUST be inserted BEFORE the colorscheme command
-autocmd ColorScheme * highlight ExtraWhitespace ctermbg=red guibg=red
-au InsertLeave * match ExtraWhitespace /\s\+$/
+"  Sets how many lines of history VIM has to remember
+set history=1000
+set undolevels=700
+set cursorline cul
 
-" Color scheme
-" mkdir -p ~/.vim/colors && cd ~/.vim/colors
-" wget -O wombat256mod.vim http://www.vim.org/scripts/download_script.php?src_id=13400
-set t_Co=256
-color wombat256mod
+" Allow backspacing over autoindent, line breaks and start of insert action
+set backspace=indent,eol,start
 
-
-"------------------------------------------------------------
-" Mappings {{{1
-"
-" Useful mappings
-
-" Map escape to caps while working with Vim
-au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_lock'
+" Quick delete all space character at the end of lines of current file.
+nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
 
-" Map <C-L> (redraw screen) to also turn off search highlighting until the
-" next search
-nnoremap <C-L> :nohl<CR><C-L>
-
-" Rebind <Leader> key
-let mapleader = ","
-
-" Quick reload and edit .vimrc
-nnoremap <Leader>sv :source $MYVIMRC<CR>
-nnoremap <leader>ev :vsp $MYVIMRC<CR>
-
-" Quick delete all space character at the end of lines of current file.
-nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
+" Add new line on Enter in normal mode
+map <Enter> o<ESC>
 
 " Quick save command
 noremap <C-Z> :update<CR>
 vnoremap <C-Z> <C-C>:update<CR>
 inoremap <C-Z> <C-O>:update<CR>
 
-" Quick quit command
-" Quit current window
-noremap <Leader>e :quit<CR>
-" Quit all windows
-noremap <Leader>E :qa!<CR>
-
-" Bind Ctrl-<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-l> <C-W>l
-map <C-h> <C-W>h
-
-" Move easierly between tabs
-map <leader>n <esc>:tabprevious<CR>
-map <leader>m <esc>:tabnext<CR>
-"map <leader>n <C-PageDown>
-"map <leader>p <C-PageUp>
+" Return to last edit position when opening files (You want this!)
+au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
 " map sort function to a key
 "vnoremap <Leader>s :sort<CR>
@@ -275,6 +216,64 @@ vnoremap > >gv  " better indentation
 "vmap Q gq
 "nmap Q gqap
 
+" Note that not everyone likes working this way (with the hidden option).
+" Alternatives include using tabs or split windows instead of re-using the same
+" window as mentioned above, and/or either of the following options:
+"set confirm
+"set autowriteall
+
+" Auto save
+"set autowrite
+
+" Use <F2> to toggle between 'paste' and 'nopaste'
+" Better copy & paste
+" When you want to paste large blocks of code into vim, press F2 before you
+" paste. At the bottom you should see ``-- INSERT (paste) --``.
+"set pastetoggle=<F2>
+"set clipboard=unnamed
+
+"map <leader>pp :setlocal paste!<cr>
+
+
+"------------------------------------------------------------
+" Managing and Moving between Windows
+
+" Quick quit command
+" Quit current window
+noremap <Leader>e :quit<CR>
+" Quit all windows
+noremap <Leader>E :qa!<CR>
+
+" Smart way to move between windows
+" Bind Ctrl-<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-l> <C-W>l
+map <C-h> <C-W>h
+set winwidth=90
+set wmw=20
+
+"------------------------------------------------------------
+" Managing and Moving between tabs
+
+" Move easierly between tabs
+map <leader>n <esc>:tabprevious<CR>
+map <leader>m <esc>:tabnext<CR>
+"map <leader>n <C-PageDown>
+"map <leader>p <C-PageUp>
+
+" Useful mappings for managing tabs
+noremap <leader>to :tabnew<cr>
+noremap <leader>tn :tabn<cr>
+noremap <leader>tp :tabp<cr>
+noremap <leader>tm :tabmove<cr>
+
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Compile and Run
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+"------------------------------------------------------------
 " Compile and run .py, .c, .cpp without mutual disruption
 
 " https://stackoverflow.com/questions/18296192/vim-compile-and-run-shortcut
@@ -282,25 +281,22 @@ autocmd filetype python map <F9> :w <bar> exec '!clear; python '.shellescape('%'
 autocmd filetype c map <F9> :w <bar> exec '!clear; gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp map <F9> :w <bar> exec '!clear; g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
-" Note: I'm no longer using this. Leave this commented out
-" https://stackoverflow.com/questions/18948491/running-python-code-in-vim
-"autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python3' shellescape(@%, 1)<CR>
-"autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!clear; python3' shellescape(@%, 1)<CR>
 
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => Plugins
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
 "------------------------------------------------------------
 " Setup Pathogen to manage your plugins
+
 " mkdir -p ~/.vim/autoload ~/.vim/bundle
 " curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
 " Now you can install any plugin into a .vim/bundle/plugin-name/ folder
 execute pathogen#infect()
 
-
-" ============================================================================
-" Python IDE Setup
-" ============================================================================
-
+"------------------------------------------------------------
+" Python
 
 " Introduction: Powerline is a utility plugin which allows you to create better-looking, more functional vim statuslines.
 " Settings for vim-powerline
@@ -329,23 +325,6 @@ let g:ctrlp_working_path_mode = 'ca'
 " let g:ctrlp_user_command = 'find %s -type f' "MacOSX/Linux
 " let g:ctrlp_user_command = 'dir %s /-n /b /s /a-d' "Windows
 
-
-" Settings for python-mode
-" Note: I'm no longer using this. Leave this commented out
-" and uncomment the part about jedi-vim instead
-" cd ~/.vim/bundle
-" git clone https://github.com/klen/python-mode
-"" map <Leader>g :call RopeGotoDefinition()<CR>
-"" let ropevim_enable_shortcuts = 1
-"" let ropevim_enable_shortcutsg:pymode_rope_goto_def_newwin = "vnew"
-"" let g:pymode_rope_extended_complete = 1
-"" let g:pymode_breakpoint = 0
-"" let g:pymode_syntax = 1
-"" let g:pymode_syntax_builtin_objs = 0
-"" let g:pymode_syntax_builtin_funcs = 0
-"" map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
-
-
 " Introduction: jedi-vim is a VIM binding to the autocompletion library Jedi.
 " Settings for jedi-vim
 " cd ~/.vim/bundle
@@ -359,24 +338,24 @@ map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
- set completeopt=longest,menuone
+set completeopt=longest,menuone
 
- function! OmniPopup(action) " add a ! after function to overwrite the previous function with the same name
-     if pumvisible()
-         if a:action == 'j'
-             return "\<C-N>"
-         elseif a:action == 'k'
-             return "\<C-P>"
-         endif
-     endif
-     return a:action
- endfunction
+function! OmniPopup(action) " add a ! after function to overwrite the previous function with the same name
+    if pumvisible()
+        if a:action == 'j'
+            return "\<C-n>"
+        elseif a:action == 'k'
+            return "\<C-p>"
+        endif
+    endif
+    return a:action
+endfunction
 
- inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
- inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 
 " Python folding
 " mkdir -p ~/.vim/ftplugin
 " wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
- set nofoldenable
+set nofoldenable
