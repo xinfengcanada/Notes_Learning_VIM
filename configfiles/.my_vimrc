@@ -77,14 +77,21 @@ set showcmd
 " which are considered to add usability. Which, if any, of these options to
 " use is very much a personal preference, but they are harmless.
 
+" Automatic reloading of .vimrc
+autocmd! bufwritepost .vimrc source %
+
+" Display line numbers on the left
+set number
+
+" Display line relativnumbers
+set relativenumber
+
 " Highlight searches (use <C-L> to temporarily turn off highlighting; see the
 " mapping of <C-L> below)
 set hlsearch
 
 " Incremental search
 set incsearch
-
-highlight ColorColumn ctermbg=233
 
 " Use case insensitive search, except when using capital letters
 set ignorecase
@@ -104,51 +111,45 @@ set nostartofline
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
-set ruler
+"set ruler
 
 " width of document (used by gd)
-set tw=79
+"set tw=79
 
 " Don't automatically wrap on load
-set nowrap
+"set nowrap
 
 " Don't automatically wrap text when typing
-set fo-=t
+"set fo-=t
 
+" Highlight the screen column
 set colorcolumn=80
 
+"highlight ColorColumn ctermbg=233
+
 " Always display the status line, even if only one window is displayed
-set laststatus=2
+ set laststatus=2
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
 
 " Use visual bell instead of beeping when doing something wrong
-set visualbell
+"set visualbell
 
 " And reset the terminal code for the visual bell. If visualbell is set, and
 " this line is also included, vim will neither flash nor beep. If visualbell
 " is unset, this does nothing.
-set t_vb=
+"set t_vb=
 
 " Enable use of the mouse for all modes
 if has('mouse')
   set mouse=a
 endif
 
-" Make backspace behave like normal again
-set bs=2
-
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
 "set cmdheight=2
-
-" Display line numbers on the left
-set number
-
-" Display line relativnumbers
-set relativenumber
 
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
@@ -305,6 +306,10 @@ execute pathogen#infect()
 " Settings for vim-powerline
 " cd ~/.vim/bundle
 " git clone https://github.com/Lokaltog/vim-powerline.git
+let g:Powerline_symbols = 'compatible'
+let g:Powerline_stl_path_style = 'full'
+let g:Powerline_colorscheme = 'solarized256'
+set laststatus=2
 
 " Introduction: Full path fuzzy file, buffer, mru, tag, ... finder for Vim.
 " Settings for ctrlp
@@ -347,14 +352,16 @@ let g:ctrlp_working_path_mode = 'ca'
 " git clone --recursive https://github.com/davidhalter/jedi-vim.git
 
 let g:jedi#usages_command= "<leader>z"
-let g:jedi#popup_on_dot = 0
+let g:jedi#popup_on_dot = 1
 let g:jedi#popup_select_first = 0
+let g:jedi#show_call_signatures = "1"
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
 " See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
  set completeopt=longest,menuone
- function! OmniPopup(action)
+
+ function! OmniPopup(action) " add a ! after function to overwrite the previous function with the same name
      if pumvisible()
          if a:action == 'j'
              return "\<C-N>"
@@ -365,8 +372,8 @@ map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
      return a:action
  endfunction
 
-"" inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
-"" inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
+ inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
+ inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
 
 
 " Python folding
