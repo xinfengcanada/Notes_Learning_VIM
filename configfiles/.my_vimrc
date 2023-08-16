@@ -216,6 +216,10 @@ color wombat256mod
 "
 " Useful mappings
 
+" Map escape to caps while working with Vim
+au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
+au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_lock'
+
 " Map Y to act like D and C, i.e. to yank until EOL, rather than act as yy,
 " which is the default
 map Y y$
@@ -269,6 +273,20 @@ vnoremap > >gv  " better indentation
 " easier formatting of paragraphs
 "vmap Q gq
 "nmap Q gqap
+
+" Compile and run .py, .c, .cpp without mutual disruption
+
+" https://stackoverflow.com/questions/18296192/vim-compile-and-run-shortcut
+autocmd filetype python map <F9> :w <bar> exec '!clear; python '.shellescape('%')<CR>
+autocmd filetype c map <F9> :w <bar> exec '!clear; gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+autocmd filetype cpp map <F9> :w <bar> exec '!clear; g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
+
+" Note: I'm no longer using this. Leave this commented out
+" https://stackoverflow.com/questions/18948491/running-python-code-in-vim
+"autocmd FileType python map <buffer> <F9> :w<CR>:exec '!clear; python3' shellescape(@%, 1)<CR>
+"autocmd FileType python imap <buffer> <F9> <esc>:w<CR>:exec '!clear; python3' shellescape(@%, 1)<CR>
+
+
 
 "------------------------------------------------------------
 " Setup Pathogen to manage your plugins
