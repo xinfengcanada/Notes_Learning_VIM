@@ -11,6 +11,8 @@ Others:
 
 [Dotfiles](https://github.com/xinfengcanada/Notes_Learning_VIM/tree/master/configfiles)
 
+[ArtemAngelchev/vimrc](https://github.com/ArtemAngelchev/vimrc/blob/master/basic.vim)
+
 See more about [the initialization of Vim](https://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc) or type :help initialization in Vim.
 
 ## Videos
