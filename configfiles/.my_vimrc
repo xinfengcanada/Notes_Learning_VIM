@@ -36,12 +36,14 @@ set nostartofline
 " No annoying sound on errors
 set noerrorbells
 set novisualbell
-set t_vb=
+set vb t_vb=
 set tm=500
+
 
 " Instead of failing a command because of unsaved changes, instead raise a
 " dialogue asking if you wish to save changed files.
 set confirm
+
 
 " Enable use of the mouse for all modes
 if has('mouse')
@@ -50,7 +52,7 @@ endif
 
 " Set the command window height to 2 lines, to avoid many cases of having to
 " "press <Enter> to continue"
-" See more https://stackoverflow.com/questions/12422468/vim-netrw-asking-to-press-enter-or-type-command-to-continue/12423858#12423858
+" More Info: more https://stackoverflow.com/questions/12422468/vim-netrw-asking-to-press-enter-or-type-command-to-continue/12423858#12423858
 set cmdheight=2
 
 " Quickly time out on keycodes, but never time out on mappings
@@ -95,14 +97,14 @@ set t_Co=256
 color wombat256mod
 
 " Display line numbers on the left
-"set number
+set number
 
 " Display line relativnumbers
 set relativenumber
 
 " Display the cursor position on the last line of the screen or in the status
 " line of a window
-"set ruler
+set ruler
 
 " width of document (used by gd)
 "set tw=79
@@ -193,7 +195,7 @@ nnoremap <leader>W :%s/\s\+$//<cr>:let @/=''<CR>
 map Y y$
 
 " Add new line on Enter in normal mode
-map <Enter> o<ESC>
+" map <Enter> o<ESC>
 
 " Quick save command
 noremap <C-Z> :update<CR>
@@ -211,6 +213,21 @@ au BufReadPost * if line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g
 " then press ``>`` several times.
 vnoremap < <gv  " better indentation
 vnoremap > >gv  " better indentation
+
+" Commenting blocks of code.
+" More Info: https://stackoverflow.com/questions/1676632/whats-a-quick-way-to-comment-uncomment-lines-in-vim
+
+augroup commenting_blocks_of_code
+  autocmd!
+  autocmd FileType c,cpp,java,scala let b:comment_leader = '// '
+  autocmd FileType sh,ruby,python   let b:comment_leader = '# '
+  autocmd FileType conf,fstab       let b:comment_leader = '# '
+  autocmd FileType tex              let b:comment_leader = '% '
+  autocmd FileType mail             let b:comment_leader = '> '
+  autocmd FileType vim              let b:comment_leader = '" '
+augroup END
+noremap <silent> ,cc :<C-B>silent <C-E>s/^/<C-R>=escape(b:comment_leader,'\/')<CR>/<CR>:nohlsearch<CR>
+noremap <silent> ,cu :<C-B>silent <C-E>s/^\V<C-R>=escape(b:comment_leader,'\/')<CR>//e<CR>:nohlsearch<CR>
 
 " easier formatting of paragraphs
 "vmap Q gq
@@ -240,16 +257,16 @@ vnoremap > >gv  " better indentation
 
 " Quick quit command
 " Quit current window
-noremap <Leader>e :quit<CR>
+"noremap <Leader>e :quit<CR>
 " Quit all windows
-noremap <Leader>E :qa!<CR>
+"noremap <Leader>E :qa!<CR>
 
 " Smart way to move between windows
 " Bind Ctrl-<movement> keys to move around the windows, instead of using Ctrl+w + <movement>
-map <C-j> <C-W>j
-map <C-k> <C-W>k
-map <C-l> <C-W>l
-map <C-h> <C-W>h
+"map <C-j> <C-W>j
+"map <C-k> <C-W>k
+"map <C-l> <C-W>l
+"map <C-h> <C-W>h
 set winwidth=90
 set wmw=20
 
@@ -257,8 +274,8 @@ set wmw=20
 " Managing and Moving between tabs
 
 " Move easierly between tabs
-map <leader>n <esc>:tabprevious<CR>
-map <leader>m <esc>:tabnext<CR>
+"map <leader>n <esc>:tabprevious<CR>
+"map <leader>m <esc>:tabnext<CR>
 "map <leader>n <C-PageDown>
 "map <leader>p <C-PageUp>
 
@@ -337,7 +354,7 @@ let g:jedi#show_call_signatures = "1"
 map <Leader>b Oimport ipdb; ipdb.set_trace() # BREAKPOINT<C-c>
 
 " Better navigating through omnicomplete option list
-" See http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
+" More Info: http://stackoverflow.com/questions/2170023/how-to-map-keys-for-popup-menu-in-vim
 set completeopt=longest,menuone
 
 function! OmniPopup(action) " add a ! after function to overwrite the previous function with the same name
@@ -353,9 +370,3 @@ endfunction
 
 inoremap <silent><C-j> <C-R>=OmniPopup('j')<CR>
 inoremap <silent><C-k> <C-R>=OmniPopup('k')<CR>
-
-
-" Python folding
-" mkdir -p ~/.vim/ftplugin
-" wget -O ~/.vim/ftplugin/python_editing.vim http://www.vim.org/scripts/download_script.php?src_id=5492
-set nofoldenable
