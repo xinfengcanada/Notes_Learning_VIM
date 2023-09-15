@@ -66,6 +66,10 @@ vnoremap <Leader>e <ESC>
 nnoremap <Leader>e <ESC>
 inoremap <Leader>e <ESC>
 
+vnoremap <Leader>E <ESC>
+nnoremap <Leader>E <ESC>
+inoremap <Leader>E <ESC>
+
 "------------------------------------------------------------
 " .vimrc Setting
 
@@ -176,6 +180,7 @@ set noswapfile
 
 " Set to auto read when a file is changed from the outside
 set autoread
+autocmd FocusGained * checktime
 
 "  Sets how many lines of history VIM has to remember
 set history=1000
