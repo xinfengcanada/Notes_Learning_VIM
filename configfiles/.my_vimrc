@@ -294,7 +294,7 @@ noremap <leader>tm :tabmove<cr>
 " Compile and run .py, .c, .cpp without mutual disruption
 
 " https://stackoverflow.com/questions/18296192/vim-compile-and-run-shortcut
-autocmd filetype python map <F9> :w <bar> exec '!clear; python '.shellescape('%')<CR>
+autocmd filetype python map <F9> :w <bar> exec '!clear; python3 '.shellescape('%')<CR>
 autocmd filetype c map <F9> :w <bar> exec '!clear; gcc '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 autocmd filetype cpp map <F9> :w <bar> exec '!clear; g++ '.shellescape('%').' -o '.shellescape('%:r').' && ./'.shellescape('%:r')<CR>
 
@@ -308,8 +308,9 @@ autocmd filetype cpp map <F9> :w <bar> exec '!clear; g++ '.shellescape('%').' -o
 " Setup Pathogen to manage your plugins
 
 " mkdir -p ~/.vim/autoload ~/.vim/bundle
-" curl -so ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
+" curl -LSso ~/.vim/autoload/pathogen.vim https://raw.github.com/tpope/vim-pathogen/HEAD/autoload/pathogen.vim
 " Now you can install any plugin into a .vim/bundle/plugin-name/ folder
+" See More: https://github.com/tpope/vim-pathogen
 execute pathogen#infect()
 
 "------------------------------------------------------------
