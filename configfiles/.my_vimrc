@@ -58,15 +58,13 @@ set cmdheight=2
 " Quickly time out on keycodes, but never time out on mappings
 set notimeout ttimeout ttimeoutlen=200
 
-" Map escape to caps while working with Vim
-au VimEnter * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Escape'
-au VimLeave * !xmodmap -e 'clear Lock' -e 'keycode 0x42 = Caps_lock'
-
 " Rebind <Leader> key
 let mapleader = ","
 
-" Check spell
-"set spell
+" Map escape to caps while working with Vim
+vnoremap <Leader>e <ESC>
+nnoremap <Leader>e <ESC>
+inoremap <Leader>e <ESC>
 
 "------------------------------------------------------------
 " .vimrc Setting
