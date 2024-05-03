@@ -13,6 +13,8 @@ Others:
 
 [ArtemAngelchev/vimrc](https://github.com/ArtemAngelchev/vimrc/blob/master/basic.vim)
 
+[The Ultimate vimrc](https://github.com/amix/vimrc)
+
 See more about [the initialization of Vim](https://vimdoc.sourceforge.net/htmldoc/starting.html#vimrc) or type :help initialization in Vim.
 
 ## Videos
@@ -23,4 +25,5 @@ See more about [the initialization of Vim](https://vimdoc.sourceforge.net/htmldo
 ## Books
 [Book: Vi-Improved-Vim](https://github.com/xinfengcanada/Notes_Learning_VIM/tree/master/Vi-Improved-Vim)
 
-
+## Articles
+[Guides for VIM setups](https://www.reddit.com/r/vim/comments/1cafd7l/guides_for_vim_setups/)
